@@ -25,9 +25,12 @@ def test_index_route_exists(client):
 def test_index_route_contains_meme(client):
     """Test that the index route returns HTML with meme content."""
     with patch('app.meme_get') as mock_meme_get:
-        mock_meme_get.return_value = ("https://example.com/meme.jpg", "funny")
+        mock_meme_get.return_value = ("https://example.com/test-meme.jpg", "testsubreddit")
         response = client.get('/')
-        assert b'https://example.com/meme.jpg' in response.data or b'meme' in response.data.lower()
+        # Check that the response contains the mocked meme URL
+        assert b'example.com/test-meme.jpg' in response.data
+        # Check that the response contains the subreddit
+        assert b'testsubreddit' in response.data
 
 
 @patch('app.requests.request')
