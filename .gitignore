@@ -1,0 +1,12 @@
+# Virtual Environment (Local libraries)
+flask-venv/
+
+# Python compiled files (Auto-generated)
+__pycache__/
+*.pyc
+
+# Environment variables (Secrets/API keys - Keep private!)
+.env
+
+# VS Code local settings
+.vscode/
