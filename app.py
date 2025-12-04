@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import json
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -20,4 +21,7 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Debug mode should only be enabled for local development
+    # In production, use a proper WSGI server like Gunicorn instead
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(debug=debug_mode)

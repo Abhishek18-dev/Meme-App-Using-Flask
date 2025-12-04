@@ -56,6 +56,13 @@ A simple Flask web application that displays random memes fetched from the Meme 
     ```bash
     python app.py
     ```
+    
+    **For development with debug mode enabled:**
+    ```bash
+    FLASK_DEBUG=true python app.py
+    ```
+    
+    > **Note**: Debug mode is disabled by default for security. Only enable it during local development.
 
 3.  You should see output indicating the server is running, typically:
     ```
