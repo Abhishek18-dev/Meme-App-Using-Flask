@@ -56,6 +56,13 @@ A simple Flask web application that displays random memes fetched from the Meme 
     ```bash
     python app.py
     ```
+    
+    **For development with debug mode enabled:**
+    ```bash
+    FLASK_DEBUG=true python app.py
+    ```
+    
+    > **Note**: Debug mode is disabled by default for security. Only enable it during local development.
 
 3.  You should see output indicating the server is running, typically:
     ```
@@ -69,3 +76,42 @@ A simple Flask web application that displays random memes fetched from the Meme 
 
 - `app.py`: The main Flask application file. It handles fetching the meme data and serving the webpage.
 - `templates/index.html`: The HTML template that displays the meme. It includes the auto-refresh logic and styling.
+- `test_app.py`: Unit tests for the Flask application.
+
+## Continuous Integration (CI/CD)
+
+This project includes a GitHub Actions workflow that automatically runs on every push and pull request to the `main` branch. The workflow performs the following checks:
+
+### What the CI Workflow Does
+
+1. **Sets up Python 3.10**: Configures a Python 3.10 environment for testing.
+
+2. **Installs Dependencies**: 
+   - Upgrades pip
+   - Installs `flake8` for linting
+   - Installs `pytest` for testing
+   - Installs project dependencies from `requirements.txt`
+
+3. **Linting with flake8**:
+   - **Strict Check**: Stops the build if there are Python syntax errors or undefined names (using `E9,F63,F7,F82` rules)
+   - **Warning Check**: Reports code style issues and complexity warnings (max line length: 127 characters, max complexity: 10)
+
+4. **Testing with pytest**: Runs all unit tests to ensure the application works correctly.
+
+### Running CI Checks Locally
+
+To run the same checks locally before pushing:
+
+```bash
+# Install development dependencies
+pip install flake8 pytest
+
+# Run linting
+flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+# Run tests
+pytest -v
+```
+
+The CI workflow helps maintain code quality and ensures that all changes are tested before being merged into the main branch.
